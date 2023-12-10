@@ -271,42 +271,51 @@ public class MainController implements Initializable {
 
         if (wallAB.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 0), gameState.getRoomAt(0, 1));
-            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
+            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 5;");
         }
         if (wallAD.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 0), gameState.getRoomAt(1, 0));
-            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
+            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 5 5;");
         }
         if (wallBC.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 1), gameState.getRoomAt(0, 2));
-            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
+            stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
         }
         if (wallBE.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 1), gameState.getRoomAt(1, 1));
+            stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 5 0;");
         }
         if (wallCF.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 2), gameState.getRoomAt(1, 2));
+            stackPane02.setStyle("-fx-border-color: black; -fx-border-width: 5 5 5 0;");
         }
         if (wallDE.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 0), gameState.getRoomAt(1, 1));
+            stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 5;");
         }
         if (wallDG.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 0), gameState.getRoomAt(2, 0));
+            stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
         }
         if (wallEF.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 1), gameState.getRoomAt(1, 2));
+            stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
         }
         if (wallEH.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 1), gameState.getRoomAt(2, 1));
+            stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
         }
         if (wallFI.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 2), gameState.getRoomAt(2, 2));
+            stackPane12.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
         }
         if (wallGH.isSelected()) {
             gameState.addWall(gameState.getRoomAt(2, 0), gameState.getRoomAt(2, 1));
+            stackPane20.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 5;");
         }
         if (wallHI.isSelected()) {
             gameState.addWall(gameState.getRoomAt(2, 1), gameState.getRoomAt(2, 2));
+            stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
         }
 
         String searchAlgorithm = getSelectedSearchAlgorithm();
