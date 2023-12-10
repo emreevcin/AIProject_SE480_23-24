@@ -1,20 +1,22 @@
 package com.mey.se420.se420_2023;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Rectangle;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     private ToggleGroup goal;
@@ -45,9 +47,6 @@ public class MainController {
 
     @FXML
     private RadioButton goalI;
-
-    @FXML
-    private GridPane gridPane;
 
     @FXML
     private ToggleGroup initial;
@@ -160,6 +159,33 @@ public class MainController {
     @FXML
     private Arc robotIcon;
 
+    @FXML
+    private StackPane stackPane00;
+
+    @FXML
+    private StackPane stackPane01;
+
+    @FXML
+    private StackPane stackPane02;
+
+    @FXML
+    private StackPane stackPane10;
+
+    @FXML
+    private StackPane stackPane11;
+
+    @FXML
+    private StackPane stackPane12;
+
+    @FXML
+    private StackPane stackPane20;
+
+    @FXML
+    private StackPane stackPane21;
+
+    @FXML
+    private StackPane stackPane22;
+
 
     @FXML
     void start() {
@@ -214,43 +240,46 @@ public class MainController {
 
         if (goalRoomLabel == 'A') {
             gameState.setGoalRoom(gameState.getRoomAt(0, 0));
-            rectangleA.setFill(Color.LIGHTSEAGREEN);
+            rectangleA.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'B') {
             gameState.setGoalRoom(gameState.getRoomAt(0, 1));
-            rectangleB.setFill(Color.LIGHTSEAGREEN);
+            rectangleB.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'C') {
             gameState.setGoalRoom(gameState.getRoomAt(0, 2));
-            rectangleC.setFill(Color.LIGHTSEAGREEN);
+            rectangleC.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'D') {
             gameState.setGoalRoom(gameState.getRoomAt(1, 0));
-            rectangleD.setFill(Color.LIGHTSEAGREEN);
+            rectangleD.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'E') {
             gameState.setGoalRoom(gameState.getRoomAt(1, 1));
-            rectangleE.setFill(Color.LIGHTSEAGREEN);
+            rectangleE.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'F') {
             gameState.setGoalRoom(gameState.getRoomAt(1, 2));
-            rectangleF.setFill(Color.LIGHTSEAGREEN);
+            rectangleF.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'G') {
             gameState.setGoalRoom(gameState.getRoomAt(2, 0));
-            rectangleG.setFill(Color.LIGHTSEAGREEN);
+            rectangleG.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'H') {
             gameState.setGoalRoom(gameState.getRoomAt(2, 1));
-            rectangleH.setFill(Color.LIGHTSEAGREEN);
+            rectangleH.setFill(Color.ORANGERED);
         } else if (goalRoomLabel == 'I') {
             gameState.setGoalRoom(gameState.getRoomAt(2, 2));
-            rectangleI.setFill(Color.LIGHTSEAGREEN);
+            rectangleI.setFill(Color.ORANGERED);
         } else {
             System.out.println("Invalid goal room label");
         }
 
         if (wallAB.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 0), gameState.getRoomAt(0, 1));
+            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
         }
         if (wallAD.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 0), gameState.getRoomAt(1, 0));
+            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
         }
         if (wallBC.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 1), gameState.getRoomAt(0, 2));
+            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
         }
         if (wallBE.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 1), gameState.getRoomAt(1, 1));
@@ -320,10 +349,20 @@ public class MainController {
 
         robotIcon.setVisible(false);
 
-        stepCounter.setText("Number of Steps: 0");
+        stepCounter.setText("Current Cost: 0");
 
         expandedList.setVisible(false);
         expandedList.setText("Expanded List: ");
+
+        stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 5;");
+        stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 0;");
+        stackPane02.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
+        stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 5;");
+        stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 0;");
+        stackPane12.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
+        stackPane20.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
+        stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
+        stackPane22.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
 
     }
 
@@ -335,5 +374,18 @@ public class MainController {
     private String getSelectedSearchAlgorithm() {
         RadioButton radioButton = (RadioButton) search.getSelectedToggle();
         return radioButton.getText();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 5;");
+        stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 0;");
+        stackPane02.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
+        stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 5;");
+        stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 0;");
+        stackPane12.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
+        stackPane20.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
+        stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
+        stackPane22.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
     }
 }

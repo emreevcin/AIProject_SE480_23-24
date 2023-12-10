@@ -509,7 +509,7 @@
                                   <RowConstraints />
                                 </rowConstraints>
                                  <children>
-                                    <StackPane>
+                                    <StackPane fx:id="stackPane00">
                                        <children>
                                           <Rectangle fx:id="rectangleA" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="A">
@@ -523,7 +523,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.columnIndex="1">
+                                    <StackPane fx:id="stackPane01" GridPane.columnIndex="1">
                                        <children>
                                           <Rectangle fx:id="rectangleB" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="B">
@@ -536,7 +536,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.columnIndex="2">
+                                    <StackPane fx:id="stackPane02" GridPane.columnIndex="2">
                                        <children>
                                           <Rectangle fx:id="rectangleC" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="C">
@@ -549,7 +549,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.rowIndex="1">
+                                    <StackPane fx:id="stackPane10" GridPane.rowIndex="1">
                                        <children>
                                           <Rectangle fx:id="rectangleD" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="D">
@@ -562,7 +562,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <StackPane fx:id="stackPane11" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
                                           <Rectangle fx:id="rectangleE" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E">
@@ -575,7 +575,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <StackPane fx:id="stackPane12" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <children>
                                           <Rectangle fx:id="rectangleF" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="F">
@@ -588,7 +588,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.rowIndex="2">
+                                    <StackPane fx:id="stackPane20" GridPane.rowIndex="2">
                                        <children>
                                           <Rectangle fx:id="rectangleG" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="G">
@@ -601,7 +601,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <StackPane fx:id="stackPane21" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <children>
                                           <Rectangle fx:id="rectangleH" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="H">
@@ -614,7 +614,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </StackPane>
-                                    <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <StackPane fx:id="stackPane22" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                        <children>
                                           <Rectangle fx:id="rectangleI" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="120.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="I">
@@ -633,7 +633,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <TextField fx:id="stepCounter" alignment="CENTER" editable="false" text="Number of Steps:  0" />
+                              <TextField fx:id="stepCounter" alignment="CENTER" editable="false" text="Current Cost: 0" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
