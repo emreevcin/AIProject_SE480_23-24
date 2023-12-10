@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.mey.se420.se420_2023/com.mey.se420.se420_2023.HelloApplication</mainClass>
+              <mainClass>com.mey.se420.se420_2023/com.mey.se420.se420_2023.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

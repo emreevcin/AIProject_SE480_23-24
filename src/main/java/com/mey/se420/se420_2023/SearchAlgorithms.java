@@ -1,14 +1,12 @@
 package com.mey.se420.se420_2023;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 public class SearchAlgorithms {
-    public static void uniformCostSearch(GameState gameState) {
+    public static List<Node> uniformCostSearch(GameState gameState) {
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Node::getPathCost));
         Set<Room> visited = new HashSet<>();
+        List<Node> expandedNodesList = new ArrayList<>();
 
         Node initialNode = new Node(gameState.getSourceRoom());
         initialNode.setPathCost(0);
@@ -19,10 +17,11 @@ public class SearchAlgorithms {
         while (!priorityQueue.isEmpty() && expandedNodes < 10) {
             Node currentNode = priorityQueue.poll();
             expandedNodes++;
+            expandedNodesList.add(currentNode);
 
             if (currentNode.getRoom().equals(gameState.getGoalRoom())) {
                 System.out.println("Goal reached!");
-                return;
+                return expandedNodesList;
             }
 
             visited.add(currentNode.getRoom());
@@ -32,20 +31,33 @@ public class SearchAlgorithms {
                 int cost = calculateMoveCost(currentNode, neighborNode);
                 int newPathCost = currentNode.getPathCost() + cost;
 
-                if (!visited.contains(room) && newPathCost < neighborNode.getPathCost()) {
-                    neighborNode.setPathCost(newPathCost);
-                    neighborNode.setParent(currentNode);
-                    priorityQueue.add(neighborNode);
+
+                if (!visited.contains(room)) {
+                    boolean inQueue = false;
+                    for (Node n : priorityQueue) {
+                        if (n.getRoom().equals(neighborNode.getRoom())) {
+                            inQueue = true;
+                            break;
+                        }
+                    }
+
+                    if (!inQueue || newPathCost < neighborNode.getPathCost()) {
+                        neighborNode.setPathCost(newPathCost);
+                        neighborNode.setParent(currentNode);
+                        priorityQueue.add(neighborNode);
+                    }
                 }
             }
         }
 
         System.out.println("Goal not found within 10 expanded nodes.");
+        return expandedNodesList;
     }
 
-    public static void aStarSearch(GameState gameState) {
+    public static List<Node> aStarSearch(GameState gameState) {
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Node::getTotalCost));
         Set<Room> visited = new HashSet<>();
+        List<Node> expandedNodesList = new ArrayList<>();
 
         Node initialNode = new Node(gameState.getSourceRoom());
         initialNode.setPathCost(0);
@@ -57,10 +69,11 @@ public class SearchAlgorithms {
         while (!priorityQueue.isEmpty() && expandedNodes < 10) {
             Node currentNode = priorityQueue.poll();
             expandedNodes++;
+            expandedNodesList.add(currentNode);
 
             if (currentNode.getRoom().equals(gameState.getGoalRoom())) {
                 System.out.println("Goal reached!");
-                return;
+                return expandedNodesList;
             }
 
             visited.add(currentNode.getRoom());
@@ -70,21 +83,28 @@ public class SearchAlgorithms {
                 int cost = calculateMoveCost(currentNode, neighborNode);
                 int newPathCost = currentNode.getPathCost() + cost;
 
-                if (!visited.contains(room)) {
-                    int heuristic = calculateHammingDistance(neighborNode, gameState.getGoalRoom());
-                    int totalCost = newPathCost + heuristic;
+                int heuristic = calculateHammingDistance(neighborNode, gameState.getGoalRoom());
+                int totalCost = newPathCost + heuristic;
 
-                    if (totalCost < neighborNode.getTotalCost()) {
-                        neighborNode.setPathCost(newPathCost);
-                        neighborNode.setHeuristic(heuristic);
-                        neighborNode.setParent(currentNode);
-                        priorityQueue.add(neighborNode);
+                boolean inQueue = false;
+                for (Node n : priorityQueue) {
+                    if (n.getRoom().equals(neighborNode.getRoom())) {
+                        inQueue = true;
+                        break;
                     }
+                }
+
+                if (!visited.contains(room) && (!inQueue || totalCost < neighborNode.getTotalCost())) {
+                    neighborNode.setPathCost(newPathCost);
+                    neighborNode.setHeuristic(heuristic);
+                    neighborNode.setParent(currentNode);
+                    priorityQueue.add(neighborNode);
                 }
             }
         }
 
         System.out.println("Goal not found within 10 expanded nodes.");
+        return expandedNodesList;
     }
 
 
@@ -121,7 +141,6 @@ public class SearchAlgorithms {
             if (newRow >= 0 && newRow < 3 && newCol >= 0 && newCol < 3) {
                 Room adjacentRoom = gameState.getRoomAt(newRow, newCol);
 
-                // Check if there's a wall between current and adjacent room
                 if (!gameState.isWallBetween(currentRoom, adjacentRoom)) {
                     adjacentRooms.add(adjacentRoom);
                 }
