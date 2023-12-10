@@ -45,9 +45,6 @@ public class SearchAlgorithms {
                         neighborNode.setParent(currentNode);
                         priorityQueue.add(neighborNode);
 
-                        System.out.println("---" + currentNode.getRoom().getLabel());
-                        System.out.println("***" + neighborNode.getRoom().getLabel());
-                        System.out.println("+++" + neighborNode.getParent().getRoom().getLabel());
                     }
                 }
             }

@@ -1,11 +1,13 @@
 package com.mey.se420.se420_2023;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -186,6 +188,9 @@ public class MainController implements Initializable {
     @FXML
     private StackPane stackPane22;
 
+    @FXML
+    private GridPane gridPane;
+
 
     @FXML
     void start() {
@@ -201,40 +206,53 @@ public class MainController implements Initializable {
         gameState.setRoomAt(2, 1, new Room('H', 2, 1));
         gameState.setRoomAt(2, 2, new Room('I', 2, 2));
 
-        robotIcon.setVisible(true);
 
         char sourceRoomLabel = getSelectedRoomLabel(initial);
+
+        gridPane.getChildren().remove(robotIcon);
 
         if (sourceRoomLabel == 'A') {
             gameState.setSourceRoom(gameState.getRoomAt(0, 0));
             rectangleA.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 0, 0);
         } else if (sourceRoomLabel == 'B') {
             gameState.setSourceRoom(gameState.getRoomAt(0, 1));
             rectangleB.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 1, 0);
         } else if (sourceRoomLabel == 'C') {
             gameState.setSourceRoom(gameState.getRoomAt(0, 2));
             rectangleC.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 2, 0);
         } else if (sourceRoomLabel == 'D') {
             gameState.setSourceRoom(gameState.getRoomAt(1, 0));
             rectangleD.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 0, 1);
         } else if (sourceRoomLabel == 'E') {
             gameState.setSourceRoom(gameState.getRoomAt(1, 1));
             rectangleE.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 1, 1);
         } else if (sourceRoomLabel == 'F') {
             gameState.setSourceRoom(gameState.getRoomAt(1, 2));
             rectangleF.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 2, 1);
         } else if (sourceRoomLabel == 'G') {
             gameState.setSourceRoom(gameState.getRoomAt(2, 0));
             rectangleG.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 0, 2);
         } else if (sourceRoomLabel == 'H') {
             gameState.setSourceRoom(gameState.getRoomAt(2, 1));
             rectangleH.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 1, 2);
         } else if (sourceRoomLabel == 'I') {
             gameState.setSourceRoom(gameState.getRoomAt(2, 2));
             rectangleI.setFill(Color.LIGHTBLUE);
+            gridPane.add(robotIcon, 2, 2);
         } else {
             System.out.println("Invalid source room label");
         }
+
+        robotIcon.setVisible(true);
+
 
         char goalRoomLabel = getSelectedRoomLabel(goal);
 
@@ -322,17 +340,41 @@ public class MainController implements Initializable {
         if (searchAlgorithm.equals("A* Search")) {
             List<Node> expansionNodes = SearchAlgorithms.aStarSearch(gameState);
             expandedList.setVisible(true);
-            for (Node node : expansionNodes) {
-                String currentText = expandedList.getText();
-                expandedList.setText(currentText + "    " + node.getRoom().getLabel() + " - " + node.getTotalCost());
-            }
+            new Thread(() -> {
+                for (Node node : expansionNodes) {
+                    Platform.runLater(() -> {
+                        String currentText = expandedList.getText();
+                        expandedList.setText(currentText + "    " + node.getRoom().getLabel() + " - " + node.getTotalCost());
+                        stepCounter.setText("Current Cost: " + node.getTotalCost());
+                        gridPane.getChildren().remove(robotIcon);
+                        gridPane.add(robotIcon, node.getRoom().getColumn(), node.getRoom().getRow());
+                    });
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         } else if (searchAlgorithm.equals("Uniform Cost Search")) {
             List<Node> expansionNodes = SearchAlgorithms.uniformCostSearch(gameState);
             expandedList.setVisible(true);
-            for (Node node : expansionNodes) {
-                String currentText = expandedList.getText();
-                expandedList.setText(currentText + "    " + node.getRoom().getLabel() + " - " + node.getTotalCost());
-            }
+            new Thread(() -> {
+                for (Node node : expansionNodes) {
+                    Platform.runLater(() -> {
+                        String currentText = expandedList.getText();
+                        expandedList.setText(currentText + "    " + node.getRoom().getLabel() + " - " + node.getTotalCost());
+                        stepCounter.setText("Current Cost: " + node.getTotalCost());
+                        gridPane.getChildren().remove(robotIcon);
+                        gridPane.add(robotIcon, node.getRoom().getColumn(), node.getRoom().getRow());
+                    });
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         } else {
             System.out.println("Invalid search algorithm");
         }
