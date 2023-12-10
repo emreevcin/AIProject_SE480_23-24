@@ -31,7 +31,6 @@ public class SearchAlgorithms {
                 int cost = calculateMoveCost(currentNode, neighborNode);
                 int newPathCost = currentNode.getPathCost() + cost;
 
-
                 if (!visited.contains(room)) {
                     boolean inQueue = false;
                     for (Node n : priorityQueue) {
@@ -45,6 +44,10 @@ public class SearchAlgorithms {
                         neighborNode.setPathCost(newPathCost);
                         neighborNode.setParent(currentNode);
                         priorityQueue.add(neighborNode);
+
+                        System.out.println("---" + currentNode.getRoom().getLabel());
+                        System.out.println("***" + neighborNode.getRoom().getLabel());
+                        System.out.println("+++" + neighborNode.getParent().getRoom().getLabel());
                     }
                 }
             }
@@ -148,5 +151,4 @@ public class SearchAlgorithms {
         }
         return adjacentRooms;
     }
-
 }

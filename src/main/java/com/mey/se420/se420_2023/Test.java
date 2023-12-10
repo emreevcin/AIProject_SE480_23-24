@@ -45,6 +45,7 @@ public class Test {
         }
         System.out.println("Source room is " + gameState.getSourceRoom().getLabel());
 
+        Robot robot = new Robot(gameState.getSourceRoom());
 
         System.out.println("Enter the goal room label: ");
         char goalRoomLabel = scanner.next().charAt(0);
