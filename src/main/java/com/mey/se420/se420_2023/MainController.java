@@ -335,6 +335,9 @@ public class MainController implements Initializable {
             gameState.addWall(gameState.getRoomAt(0, 0), gameState.getRoomAt(1, 0));
             stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 5 5;");
         }
+        if (wallAB.isSelected() & wallAD.isSelected()) {
+            stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 5 5 5;");
+        }
         if (wallBC.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 1), gameState.getRoomAt(0, 2));
             stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
@@ -342,6 +345,9 @@ public class MainController implements Initializable {
         if (wallBE.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 1), gameState.getRoomAt(1, 1));
             stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 5 0;");
+        }
+        if (wallBC.isSelected() && wallBE.isSelected()) {
+            stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 5 5 0;");
         }
         if (wallCF.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 2), gameState.getRoomAt(1, 2));
@@ -355,6 +361,9 @@ public class MainController implements Initializable {
             gameState.addWall(gameState.getRoomAt(1, 0), gameState.getRoomAt(2, 0));
             stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
         }
+        if (wallDE.isSelected() && wallDG.isSelected()) {
+            stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 5;");
+        }
         if (wallEF.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 1), gameState.getRoomAt(1, 2));
             stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
@@ -362,6 +371,9 @@ public class MainController implements Initializable {
         if (wallEH.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 1), gameState.getRoomAt(2, 1));
             stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
+        }
+        if (wallEF.isSelected() && wallEH.isSelected()) {
+            stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
         }
         if (wallFI.isSelected()) {
             gameState.addWall(gameState.getRoomAt(1, 2), gameState.getRoomAt(2, 2));
