@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SearchAlgorithms {
     public static List<Node> uniformCostSearch(GameState gameState) {
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Node::getPathCost));
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Node::getPathCost).thenComparing(node -> node.getRoom().getLabel()));
         Set<Room> visited = new HashSet<>();
         List<Node> expandedNodesList = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class SearchAlgorithms {
     }
 
     public static List<Node> aStarSearch(GameState gameState) {
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Node::getTotalCost));
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(Node::getTotalCost).thenComparing(node -> node.getRoom().getLabel()));
         Set<Room> visited = new HashSet<>();
         List<Node> expandedNodesList = new ArrayList<>();
 
