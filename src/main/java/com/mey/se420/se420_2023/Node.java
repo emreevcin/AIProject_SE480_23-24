@@ -25,16 +25,8 @@ public class Node {
         this.pathCost = pathCost;
     }
 
-    public int getHeuristic() {
-        return heuristic;
-    }
-
     public void setHeuristic(int heuristic) {
         this.heuristic = heuristic;
-    }
-
-    public Node getParent() {
-        return parent;
     }
 
     public void setParent(Node parent) {

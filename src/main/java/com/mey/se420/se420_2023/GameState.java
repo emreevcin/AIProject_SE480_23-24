@@ -43,18 +43,6 @@ public class GameState {
         }
     }
 
-    public int[] getCoordinatesByLabel(char label) {
-        Room room = getRoomByLabel(label);
-        if (room != null) {
-            return new int[] { room.getRow(), room.getColumn() };
-        }
-        return null;
-    }
-
-    public boolean hasWall(String wall) {
-        return walls.containsKey(wall);
-    }
-
     public boolean isWallBetween(Room room1, Room room2) {
         String wall = constructWallIdentifier(room1, room2);
         return walls.containsKey(wall);
@@ -70,17 +58,5 @@ public class GameState {
         char label2 = room2.getLabel();
         String wall = label1 < label2 ? label1 + "-" + label2 : label2 + "-" + label1;
         return wall;
-    }
-
-    private Room getRoomByLabel(char label) {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                Room room = getRoomAt(row, col);
-                if (room.getLabel() == label) {
-                    return room;
-                }
-            }
-        }
-        return null;
     }
 }

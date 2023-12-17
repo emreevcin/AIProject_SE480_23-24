@@ -191,11 +191,53 @@ public class MainController implements Initializable {
     @FXML
     private GridPane gridPane;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        createInitialBorders();
+    }
 
     @FXML
     void start() {
         GameState gameState = new GameState();
+        initializeAllRooms(gameState);
+        char sourceRoomLabel = getSelectedRoomLabel(initial);
+        assignSourceRoom(gameState, sourceRoomLabel);
+        char goalRoomLabel = getSelectedRoomLabel(goal);
+        assignGoalRoom(gameState, goalRoomLabel);
+        createBordersOfWall(gameState);
+        String searchAlgorithm = getSelectedSearchAlgorithm();
+        runSearchAlgorithm(gameState, searchAlgorithm);
+    }
 
+    @FXML
+    void reset() {
+        resetGUI();
+        createInitialBorders();
+    }
+
+    private char getSelectedRoomLabel(ToggleGroup toggleGroup) {
+        RadioButton radioButton = (RadioButton) toggleGroup.getSelectedToggle();
+        return radioButton.getText().charAt(0);
+    }
+
+    private String getSelectedSearchAlgorithm() {
+        RadioButton radioButton = (RadioButton) search.getSelectedToggle();
+        return radioButton.getText();
+    }
+
+    private void createInitialBorders() {
+        stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 5;");
+        stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 0;");
+        stackPane02.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
+        stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 5;");
+        stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 0;");
+        stackPane12.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
+        stackPane20.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
+        stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
+        stackPane22.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
+    }
+
+    private void initializeAllRooms(GameState gameState) {
         gameState.setRoomAt(0, 0, new Room('A', 0, 0));
         gameState.setRoomAt(0, 1, new Room('B', 0, 1));
         gameState.setRoomAt(0, 2, new Room('C', 0, 2));
@@ -205,12 +247,10 @@ public class MainController implements Initializable {
         gameState.setRoomAt(2, 0, new Room('G', 2, 0));
         gameState.setRoomAt(2, 1, new Room('H', 2, 1));
         gameState.setRoomAt(2, 2, new Room('I', 2, 2));
+    }
 
-
-        char sourceRoomLabel = getSelectedRoomLabel(initial);
-
+    private void assignSourceRoom(GameState gameState, char sourceRoomLabel) {
         gridPane.getChildren().remove(robotIcon);
-
         if (sourceRoomLabel == 'A') {
             gameState.setSourceRoom(gameState.getRoomAt(0, 0));
             rectangleA.setFill(Color.LIGHTBLUE);
@@ -250,12 +290,10 @@ public class MainController implements Initializable {
         } else {
             System.out.println("Invalid source room label");
         }
-
         robotIcon.setVisible(true);
+    }
 
-
-        char goalRoomLabel = getSelectedRoomLabel(goal);
-
+    private void assignGoalRoom(GameState gameState, char goalRoomLabel) {
         if (goalRoomLabel == 'A') {
             gameState.setGoalRoom(gameState.getRoomAt(0, 0));
             rectangleA.setFill(Color.ORANGERED);
@@ -286,7 +324,9 @@ public class MainController implements Initializable {
         } else {
             System.out.println("Invalid goal room label");
         }
+    }
 
+    private void createBordersOfWall(GameState gameState) {
         if (wallAB.isSelected()) {
             gameState.addWall(gameState.getRoomAt(0, 0), gameState.getRoomAt(0, 1));
             stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 5;");
@@ -335,8 +375,9 @@ public class MainController implements Initializable {
             gameState.addWall(gameState.getRoomAt(2, 1), gameState.getRoomAt(2, 2));
             stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
         }
+    }
 
-        String searchAlgorithm = getSelectedSearchAlgorithm();
+    private void runSearchAlgorithm(GameState gameState, String searchAlgorithm) {
         if (searchAlgorithm.equals("A* Search")) {
             List<Node> expansionNodes = SearchAlgorithms.aStarSearch(gameState);
             expandedList.setVisible(true);
@@ -380,63 +421,23 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
-    void reset() {
+    private void resetGUI() {
         for (Rectangle rectangle : Arrays.asList(rectangleA, rectangleB, rectangleC, rectangleD, rectangleE, rectangleF, rectangleG, rectangleH, rectangleI)) {
             rectangle.setFill(Color.TRANSPARENT);
         }
-
         for (RadioButton radioButton : Arrays.asList(initialA, initialB, initialC, initialD, initialE, initialF, initialG, initialH, initialI, goalA, goalB, goalC, goalD, goalE, goalF, goalG, goalH, goalI)) {
             radioButton.setSelected(false);
         }
-
         for (CheckBox checkBox : Arrays.asList(wallAB, wallAD, wallBC, wallBE, wallCF, wallDE, wallDG, wallEF, wallEH, wallFI, wallGH, wallHI)) {
             checkBox.setSelected(false);
         }
-
         for (RadioButton radioButton : Arrays.asList(searchAStar, searchUCS)) {
             radioButton.setSelected(false);
         }
-
         robotIcon.setVisible(false);
-
         stepCounter.setText("Current Cost: 0");
-
         expandedList.setVisible(false);
         expandedList.setText("Expanded List: ");
-
-        stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 5;");
-        stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 0;");
-        stackPane02.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
-        stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 5;");
-        stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 0;");
-        stackPane12.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
-        stackPane20.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
-        stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
-        stackPane22.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
-
     }
 
-    private char getSelectedRoomLabel(ToggleGroup toggleGroup) {
-        RadioButton radioButton = (RadioButton) toggleGroup.getSelectedToggle();
-        return radioButton.getText().charAt(0);
-    }
-
-    private String getSelectedSearchAlgorithm() {
-        RadioButton radioButton = (RadioButton) search.getSelectedToggle();
-        return radioButton.getText();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        stackPane00.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 5;");
-        stackPane01.setStyle("-fx-border-color: black; -fx-border-width: 5 0 0 0;");
-        stackPane02.setStyle("-fx-border-color: black; -fx-border-width: 5 5 0 0;");
-        stackPane10.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 5;");
-        stackPane11.setStyle("-fx-border-color: black; -fx-border-width: 0 0 0 0;");
-        stackPane12.setStyle("-fx-border-color: black; -fx-border-width: 0 5 0 0;");
-        stackPane20.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 5;");
-        stackPane21.setStyle("-fx-border-color: black; -fx-border-width: 0 0 5 0;");
-        stackPane22.setStyle("-fx-border-color: black; -fx-border-width: 0 5 5 0;");
-    }
 }
